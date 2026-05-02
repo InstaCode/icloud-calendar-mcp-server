@@ -1,5 +1,5 @@
 {
-  "name": "@instacode/icloud-calendar-mcp-server",
+  "name": "@instacodeio/icloud-calendar-mcp-server",
   "version": "0.1.0",
   "description": "MCP server for iCloud Calendar via CalDAV",
   "publishConfig": {
