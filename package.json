@@ -28,6 +28,14 @@
     "calendar",
     "caldav"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/InstaCode/icloud-calendar-mcp-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/InstaCode/icloud-calendar-mcp-server/issues"
+  },
+  "homepage": "https://github.com/InstaCode/icloud-calendar-mcp-server#readme",
   "license": "MIT",
   "engines": {
     "node": ">=18"
