@@ -1,8 +1,8 @@
-# @instacode/icloud-calendar-mcp-server
+# @instacodeio/icloud-calendar-mcp-server
 
 MCP server for iCloud Calendar via CalDAV. Lets Claude (or any MCP client) read and write events on your iCloud calendars.
 
-Published under [InstaCode](https://www.npmjs.com/org/instacode).
+Published under [InstaCode](https://www.npmjs.com/org/instacodeio).
 
 ## What it does
 
@@ -99,7 +99,7 @@ npm publish --provenance --access public
 
 **After the first publish:**
 
-1. Go to <https://www.npmjs.com/package/@instacode/icloud-calendar-mcp-server> → Settings → Trusted Publishers
+1. Go to <https://www.npmjs.com/package/@instacodeio/icloud-calendar-mcp-server> → Settings → Trusted Publishers
 2. Add a publisher with:
    - Repository owner: `InstaCode` (or your GitHub username)
    - Repository name: `icloud-calendar-mcp-server`
