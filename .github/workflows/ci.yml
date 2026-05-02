@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: ['18', '20', '22']
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      - name: Smoke test (server starts and registers tools)
+        run: |
+          OUTPUT=$( (
+            echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"ci","version":"1.0"}}}'
+            sleep 0.3
+            echo '{"jsonrpc":"2.0","method":"notifications/initialized"}'
+            sleep 0.3
+            echo '{"jsonrpc":"2.0","id":2,"method":"tools/list"}'
+            sleep 0.3
+          ) | ICLOUD_USERNAME=ci@example.com ICLOUD_APP_PASSWORD=fake-pass timeout 5 node dist/index.js 2>/dev/null )
+          echo "$OUTPUT" | grep -q '"icloud_list_calendars"' || (echo "FAIL: icloud_list_calendars not registered"; exit 1)
+          echo "$OUTPUT" | grep -q '"icloud_list_events"' || (echo "FAIL: icloud_list_events not registered"; exit 1)
+          echo "$OUTPUT" | grep -q '"icloud_create_event"' || (echo "FAIL: icloud_create_event not registered"; exit 1)
+          echo "$OUTPUT" | grep -q '"icloud_update_event"' || (echo "FAIL: icloud_update_event not registered"; exit 1)
+          echo "$OUTPUT" | grep -q '"icloud_delete_event"' || (echo "FAIL: icloud_delete_event not registered"; exit 1)
+          echo "All 5 tools registered successfully"
