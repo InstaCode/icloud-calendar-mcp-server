@@ -94,8 +94,10 @@ The npm trusted-publisher settings page only appears for packages that already e
 
 ```bash
 npm login
-npm publish --provenance --access public
+npm publish --access public
 ```
+
+> `--provenance` is intentionally omitted here. Provenance attestations require a supported OIDC provider (GitHub Actions, GitLab CI, etc.) and will fail locally with `Automatic provenance generation not supported for provider: null`. The CI workflow below adds `--provenance` automatically.
 
 **After the first publish:**
 
