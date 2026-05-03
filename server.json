@@ -1,0 +1,35 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "io.github.InstaCode/icloud-calendar-mcp-server",
+  "description": "MCP server for iCloud Calendar via CalDAV. List calendars, read and write events, with Apple ID + app-specific-password auth.",
+  "version": "0.1.4",
+  "repository": {
+    "url": "https://github.com/InstaCode/icloud-calendar-mcp-server",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registry_type": "npm",
+      "identifier": "@instacodeio/icloud-calendar-mcp-server",
+      "version": "0.1.4",
+      "transport": {
+        "type": "stdio"
+      },
+      "runtime_hint": "npx",
+      "environment_variables": [
+        {
+          "name": "ICLOUD_USERNAME",
+          "description": "Apple ID email address used for CalDAV authentication.",
+          "is_required": true,
+          "is_secret": false
+        },
+        {
+          "name": "ICLOUD_APP_PASSWORD",
+          "description": "App-specific password generated at appleid.apple.com. The regular Apple ID password will not work because of 2FA.",
+          "is_required": true,
+          "is_secret": true
+        }
+      ]
+    }
+  ]
+}
